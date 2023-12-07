@@ -5,7 +5,7 @@ export type TabListProps = QwikIntrinsicElements['div'];
 // List of tabs that can be clicked to show different content.
 export const TabList = component$((props: TabListProps) => {
   return (
-    <div role="tablist" {...props}>
+    <div {...props} role="tablist">
       <Slot />
     </div>
   );

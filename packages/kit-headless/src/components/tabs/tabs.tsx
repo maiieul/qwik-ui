@@ -83,16 +83,25 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
   // Extract the Tab related components from the children
   while (childrenToProcess.length) {
     const child = childrenToProcess.shift();
+
     if (!child) {
       continue;
     }
+    // console.log('child', child.children[0]);
+
     if (Array.isArray(child)) {
       childrenToProcess.unshift(...child);
       continue;
     }
 
+    if (typeof child.type === typeof TabList) {
+      console.log('child', child.type);
+    }
+
     switch (child.type) {
       case TabList: {
+        console.log('TabList');
+
         tabListComponent = child;
         const tabListChildren = Array.isArray(child.props.children)
           ? child.props.children
@@ -102,6 +111,8 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         break;
       }
       case Tab: {
+        console.log('Tab');
+
         if (child.props.selected) {
           const currentTabIndex = tabComponents.length;
           selectedIndex = currentTabIndex;
@@ -111,6 +122,8 @@ export const Tabs: FunctionComponent<TabsProps> = (props) => {
         break;
       }
       case TabPanel: {
+        console.log('TabPanel');
+
         const { label, selected } = child.props;
         // The consumer must provide a key if they change the order
         const matchedTabComponent = tabComponents[panelIndex];
