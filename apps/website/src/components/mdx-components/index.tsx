@@ -9,6 +9,7 @@ import { CodeSnippet } from '../code-snippet/code-snippet';
 import { InstallSnippet } from '../install-snippet/install-snippet';
 import { Note } from '../note/note';
 import { cn } from '@qwik-ui/utils';
+import { Highlight } from '../highlight/highlight';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const components: Record<string, any> = {
@@ -131,4 +132,5 @@ export const components: Record<string, any> = {
   Note,
   StatusBanner,
   Showcase,
+  Highlight,
 };

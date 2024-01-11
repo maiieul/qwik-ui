@@ -166,6 +166,10 @@ module.exports = {
         step: 'cubic-bezier(0.6, 0.6, 0, 1)',
         jumpy: 'cubic-bezier(0.87, 0, 0.13, 1)',
       },
+      animation: {
+        'accordion-down': '0.2s ease-out 0s 1 normal forwards accordion-open',
+        'accordion-up': '0.2s ease-out 0s 1 normal forwards accordion-close',
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: 0 },

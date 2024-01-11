@@ -11,7 +11,7 @@ export type ComponentKitsStatuses = {
 
 export const statusByComponent: ComponentKitsStatuses = {
   fluffy: {
-    Accordion: ComponentStatus.Planned,
+    Accordion: ComponentStatus.Beta,
     Alert: ComponentStatus.Planned,
     Badge: ComponentStatus.Planned,
     Breadcrumb: ComponentStatus.Planned,
