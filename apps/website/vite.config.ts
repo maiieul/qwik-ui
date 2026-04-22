@@ -2,6 +2,7 @@ import { qwikRouter } from '@qwik.dev/router/vite';
 import { qwikVite } from '@qwik.dev/core/optimizer';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { fileURLToPath } from 'node:url';
 import { recmaProvideComponents } from './recma-provide-components';
 import autoAPI from './auto-api';
 import { ShikiTransformer } from 'shiki';
@@ -46,6 +47,7 @@ export default defineConfig(async () => {
         },
         ssr: {
           outDir: '../../dist/apps/website/server',
+          input: fileURLToPath(new URL('./src/entry.preview.tsx', import.meta.url)),
         },
       }),
       tsconfigPaths({ root: '../../' }),
