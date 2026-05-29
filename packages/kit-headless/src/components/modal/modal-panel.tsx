@@ -53,12 +53,7 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
     if (!panelRef.value) return;
 
-    // Initialize the scroll locker once. `@fluejs/noscroll` keeps the panel
-    // itself scrollable/interactive (incl. touch dragging on iOS Safari) while
-    // the page behind it is locked — unlike body-scroll-lock-upgrade, which
-    // blocked movement-based touch inside the modal on iOS (#1113).
     if (!isInitialized.value) {
-      markScrollable(panelRef.value);
       isInitialized.value = true;
 
       const noScroll = createNoScroll({
@@ -74,6 +69,20 @@ export const HModalPanel = component$((props: PropsOf<'dialog'>) => {
 
     if (isOpen) {
       await showModal(panelRef.value);
+
+      // noscroll only lets touch gestures scroll elements it has marked.
+      // Mark the panel and any inner scroll container (e.g. a scrollable body
+      // with a sticky header/footer) so they remain touch-scrollable on iOS;
+      // otherwise the gesture resolves to the non-scrollable dialog and gets
+      // prevented. Re-scanned on each open to pick up the current content.
+      markScrollable(panelRef.value);
+      panelRef.value.querySelectorAll<HTMLElement>('*').forEach((el) => {
+        const { overflowX, overflowY } = getComputedStyle(el);
+        if (/(auto|scroll|overlay)/.test(`${overflowX} ${overflowY}`)) {
+          markScrollable(el);
+        }
+      });
+
       disablePageScroll.value?.();
       activateFocusTrap(focusTrap);
     } else {
